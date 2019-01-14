@@ -1,5 +1,6 @@
 // Libraries
 import React, { Component } from "react";
+import NumberFormat from "react-number-format";
 import { Grid, Paper, TextField, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 // Custom
@@ -13,6 +14,27 @@ const styles = theme => ({
   }
 })
 
+const TimeMask = (props) => {
+  const { inputRef, onChange, ...other } = props;
+  return (
+    <NumberFormat 
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={values => {
+        onChange({
+          target: {
+            value: values.value
+          }
+        })
+      }}
+      label="Time Spent"
+      placeholder="__ hours __ minutes"
+      format="## hours ## minutes"
+      mask="_"
+    />
+  )
+}
+
 class Add extends Component {
 
   constructor(props) {
@@ -20,9 +42,7 @@ class Add extends Component {
 
     this.state = {
       email: "",
-      time: null,
-      timeHours: "0",
-      timeMinutes: "0",      
+      time: null,          
       message: ""
     }
   }
@@ -33,44 +53,47 @@ class Add extends Component {
     });
   };
 
-  handleTimeChange = time => {
-    alert(time);
-  };
-
   render() {
     return (
       <Grid container direction="row" justify="center" alignItems="center" style={{ padding: 20, height: "100vh" }}>
         <Grid item md={8} xs={12}>
           <Paper style={{ textAlign: "center", padding: 20 }}>
             <form>
-              <TextField
-                id="email"
-                label="Email"
-                value={this.state.email}
-                onChange={this.handleChange("email")}
-              />
-              Time Spent: 
-              <TextField
-                id="time"
-                label="Time Spent"
-                value={this.state.time}
-                onChange={this.handleChange("time")}
-                type="time"
-              />
-              <TextField
-                id="time"
-                label="Time Spent"
-                value={this.state.time}
-                onChange={this.handleChange("time")}
-                type="time"
-              />
-              <TextField
-                id="message"
-                label="Message (optional)"
-                value={this.state.message}
-                onChange={this.handleChange("message")}
-                multiline={true}
-              />
+              <Grid container direction="row" justify="center" alignItems="center">
+                <Grid item>
+                  <TextField
+                    id="email"
+                    placeholder="Email"
+                    value={this.state.email}
+                    onChange={this.handleChange("email")}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    value={this.state.time}
+                    onChange={this.handleChange("time")}
+                    InputProps={{
+                      inputComponent: TimeMask
+                    }}
+                  />
+                </Grid>                             
+                <Grid item md={8} xs={12}>
+                  <TextField
+                    id="message"
+                    label="Message (optional)"
+                    value={this.state.message}
+                    onChange={this.handleChange("message")}
+                    multiline={true}
+                    fullWidth={true}
+                    style={{ minHeight: 56 }}
+                  />
+                </Grid>
+              </Grid>
+              
+              
+              
+              
+              
             </form>
           </Paper>            
         </Grid>          

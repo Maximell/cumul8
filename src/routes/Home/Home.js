@@ -20,7 +20,7 @@ class Home extends Component {
       <Grid container direction="row" justify="center" alignItems="center" style={{padding: 20, height: "100vh"}}>
         <Grid item xs={12}>
           <Paper style={{ textAlign: "center", padding: 20 }}>
-            xs=12
+            
             <Fab 
               style={{ position: "absolute", right: 0, bottom: 0 }}
               onClick={() => this.props.history.push("/add/")}
