@@ -1,6 +1,6 @@
 // Libraries
 import React, { Component } from "react";
-import { Button, FormControlLabel, FormHelperText, Grid, InputAdornment, Paper, Radio, RadioGroup, TextField, Zoom } from "@material-ui/core";
+import { Button, FormControlLabel, FormLabel, FormHelperText, Grid, InputAdornment, Paper, Radio, RadioGroup, TextField, Typography, Zoom } from "@material-ui/core";
 import * as Icons from "@material-ui/icons";
 // Custom
 import * as TimesheetActions from "../../actions/TimesheetActions";
@@ -14,7 +14,7 @@ import { secondsToHoursMinutesString, timeInputToSeconds } from "../../util/Util
 
 const styles = {
   errorMessage: {
-    color: Colours.error
+    color: Colours.error    
   }
 }
 
@@ -119,11 +119,19 @@ class TimesheetAdd extends Component {
         <Paper style={{ textAlign: "center", padding: 20 }}>
           {this.state.step === 1 && (
             <Zoom in={this.state.step === 1}>
-              <Grid container direction="row" justify="center" alignItems="center" style={{ minHeight: minHeight }}>
+              <Grid container direction="column" justify="center" alignItems="flex-start" style={{ minHeight: minHeight }}>
+                <Grid container direction="column" justify="center" alignItems="center">
+                  <Grid item>
+                    <Typography variant="h6">Add a Timesheet</Typography>
+                  </Grid>
+                </Grid>                
                 <Grid item xs={12}>
                   <TextField
+                    required
+                    error={!this.state.formValid.emailValid}
+                    label="Email"
                     id="email"
-                    placeholder="Email"
+                    placeholder="you@x.y"
                     value={this.state.email}
                     onChange={this.handleChange("email")}
                     type="email"
@@ -143,6 +151,9 @@ class TimesheetAdd extends Component {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    required
+                    error={!this.state.formValid.timeValid}
+                    label="Time Spent"
                     value={this.state.time}
                     onChange={this.handleChange("time")}
                     InputProps={{
@@ -159,28 +170,31 @@ class TimesheetAdd extends Component {
                     <FormHelperText style={{...styles.errorMessage, paddingBottom: !this.state.formValid.emailValid ? 10 : 0}}>Please enter a valid time.</FormHelperText>
                   </Zoom>
                 </Grid>
+                <FormLabel component="legend">Type of Work</FormLabel>
                 <Grid item md={8} xs={12}>
-                  <RadioGroup name="Type of Work" value={this.state.type} onChange={this.handleChange("type")}>
+                  <RadioGroup label="Type of Work" name="Type of Work" value={this.state.type} onChange={this.handleChange("type")}>
                     {Object.keys(WorkTypes).map((workType, i) => <FormControlLabel value={workType} control={<Radio />} label={WorkTypes[workType]} disabled={this.props.timesheetsLoading} key={i}/>)}
                   </RadioGroup>
                 </Grid>
-                <Grid item xs={12} style={{ paddingTop: 10 }}>
-                  <TextField
-                    id="message"
-                    label="Message (optional)"
-                    value={this.state.message}
-                    onChange={this.handleChange("message")}
-                    multiline={true}
-                    fullWidth={true}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Icons.EditOutlined />
-                        </InputAdornment>
-                      )
-                    }}
-                    disabled={this.props.timesheetsLoading}
-                  />
+                <Grid container>                  
+                  <Grid item xs={12} style={{ paddingTop: 10 }}>
+                    <TextField     
+                      label="Message"             
+                      id="message"
+                      value={this.state.message}
+                      onChange={this.handleChange("message")}
+                      multiline={true}
+                      fullWidth={true}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Icons.EditOutlined />
+                          </InputAdornment>
+                        )
+                      }}
+                      disabled={this.props.timesheetsLoading}
+                    />
+                  </Grid>
                 </Grid>
                 <Grid container justify="center" alignItems="center" style={{ paddingTop: 10 }}>
                   <Grid item xs={6}>

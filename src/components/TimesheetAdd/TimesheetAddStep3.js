@@ -8,7 +8,7 @@ const TimesheetAddStep3 = (props) => (
   <Grid container direction="row" justify="center" alignItems="flex-end" style={{ minHeight: props.minHeight }}>
     <Grid item xs={12}>
       <Icons.CheckCircleOutline style={{ fontSize: 30 }} />
-      <Typography variant="body1">
+      <Typography variant="h6">
         Thanks {props.email}! You just logged {props.time} of work today.
       </Typography>
     </Grid>
