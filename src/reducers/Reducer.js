@@ -5,7 +5,7 @@ import TimesheetReducer from "./TimesheetReducer";
 
 
 const Reducer = combineReducers({
-  user: TimesheetReducer
+  timesheets: TimesheetReducer
 });
 
 export default Reducer;
