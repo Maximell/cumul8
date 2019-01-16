@@ -135,7 +135,6 @@ class TimesheetAdd extends Component {
                     value={this.state.email}
                     onChange={this.handleChange("email")}
                     type="email"
-                    ref="textFieldEmail"
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -173,7 +172,7 @@ class TimesheetAdd extends Component {
                 <FormLabel component="legend">Type of Work</FormLabel>
                 <Grid item md={8} xs={12}>
                   <RadioGroup label="Type of Work" name="Type of Work" value={this.state.type} onChange={this.handleChange("type")}>
-                    {Object.keys(WorkTypes).map((workType, i) => <FormControlLabel value={workType} control={<Radio />} label={WorkTypes[workType]} disabled={this.props.timesheetsLoading} key={i}/>)}
+                    {Object.keys(WorkTypes).map((workType, i) => <FormControlLabel value={workType} control={<Radio />} label={<Typography variant={this.state.type === workType ? "body2" : "body1"}>{WorkTypes[workType]}</Typography>} disabled={this.props.timesheetsLoading} key={i} />)}
                   </RadioGroup>
                 </Grid>
                 <Grid container>                  
