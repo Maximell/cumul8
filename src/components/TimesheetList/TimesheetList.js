@@ -1,6 +1,6 @@
 // Libraries
 import React, { Component } from "react";
-import { Grid, Paper, Table, TableBody, TableCell, TableHead, Typography, Zoom } from "@material-ui/core";
+import { Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography, Zoom } from "@material-ui/core";
 import * as Icons from "@material-ui/icons";
 // Custom
 import TimesheetListRow from "../TimesheetListRow/TimesheetListRow";
@@ -24,11 +24,13 @@ class TimesheetList extends Component {
           <Paper style={{ textAlign: "center", padding: 20, overflowX: "auto" }}>
             <Table>
               <TableHead>
-                <TableCell>Email</TableCell>
-                <TableCell>Time</TableCell>
-                <TableCell>Message</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Created</TableCell>
+                <TableRow>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Time</TableCell>
+                  <TableCell>Message</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Created</TableCell>
+                </TableRow>                
               </TableHead>
               <TableBody>
                 {timesheets.map((timesheet, i) => <TimesheetListRow timesheet={timesheet} key={i} />)}
